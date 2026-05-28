@@ -24,9 +24,9 @@ services:
       homepage.icon: si-vikunja
       homepage.href: https://familyplanner.imkai.com/
       homepage.description: Task management
-      homepage.siteMonitor: http://${EXTERNAL_IP}:3457
+      homepage.siteMonitor: http://192.168.178.119:3457
       homepage.widget.type: vikunja
-      homepage.widget.url: http://${EXTERNAL_IP}:3457
+      homepage.widget.url: http://192.168.178.119:3457
       homepage.widget.key: tk_cf6b9e52c70605be988ff35734fab59cc1937609
       homepage.widget.enableTaskList: "true"
       homepage.widget.version: "2"
