@@ -1,5 +1,5 @@
 services:
-  vikunja:
+  familyplanner:
     image: vikunja/vikunja:2.3.0
     container_name: familyplanner
     environment:
