@@ -1,0 +1,44 @@
+services:
+  vikunja:
+    image: vikunja/vikunja:2.3.0
+    container_name: familyplanner
+    environment:
+      VIKUNJA_SERVICE_PUBLICURL: https://familyplanner.imkai.com/
+      VIKUNJA_SERVICE_JWTSECRET: 4485ba06702ca9666bb13806f4ff0efff797588122b24d8c29e117f526392ea3
+      VIKUNJA_DATABASE_HOST: db
+      VIKUNJA_DATABASE_PASSWORD: changeme
+      VIKUNJA_DATABASE_TYPE: postgres
+      VIKUNJA_DATABASE_USER: vikunja
+      VIKUNJA_DATABASE_DATABASE: vikunja
+    ports:
+      - 3457:3456
+    volumes:
+      - ./familyplanner/files:/app/vikunja/files
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    labels:
+      homepage.group: Engineering
+      homepage.name: FamilyPlanner
+      homepage.icon: si-vikunja
+      homepage.href: https://familyplanner.imkai.com/
+      homepage.description: Task management
+      homepage.siteMonitor: http://${EXTERNAL_IP}:3457
+      homepage.widget.type: vikunja
+      homepage.widget.url: http://${EXTERNAL_IP}:3457
+      homepage.widget.key: ${KEY}
+      homepage.widget.enableTaskList: "true"
+      homepage.widget.version: "2"
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_PASSWORD: changeme
+      POSTGRES_USER: vikunja
+    volumes:
+      - ./vikunja/pgdata:/var/lib/postgresql
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h localhost -U $$POSTGRES_USER"]
+      interval: 2s
+      start_period: 30s
