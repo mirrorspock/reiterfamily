@@ -4,7 +4,6 @@ services:
     container_name: familyplanner
     environment:
       VIKUNJA_SERVICE_PUBLICURL: https://familyplanner.imkai.com/
-      VIKUNJA_SERVICE_JWTSECRET: 4485ba06702ca9666bb13806f4ff0efff797588122b24d8c29e117f526392ea3
       VIKUNJA_DATABASE_HOST: db
       VIKUNJA_DATABASE_PASSWORD: changeme
       VIKUNJA_DATABASE_TYPE: postgres
@@ -14,6 +13,7 @@ services:
       - 3457:3456
     volumes:
       - familyplanner-files:/app/vikunja/files
+    user: "0:0"
     depends_on:
       db:
         condition: service_healthy
